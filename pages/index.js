@@ -1,5 +1,4 @@
 import react from "react";
-import Scrambler from "../components/Scrambler";
 import Timer from "../components/Timer";
 
 export default function Home() {
