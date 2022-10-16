@@ -14,7 +14,13 @@ export default function Home() {
 
 	useEffect(() => {
 		getScramble();
+		document.onmousedown = disableSelect;
+		document.onselectstart = disableSelect;
 	}, []);
+
+	const disableSelect = (e) => {
+		return false;
+	};
 
 	const getScramble = async () => {
 		solveScramble.current = (await randomScrambleForEvent("333")).toString();
