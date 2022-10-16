@@ -7,24 +7,31 @@ import NavBar from "../components/NavBar";
 import ScrambleOptions from "../components/ScrambleOptions";
 
 export default function Home() {
-	const [event, setEvent] = useState("333");
+	// const [event, setEvent] = useState("333");
 	const [loaded, setLoaded] = useState(false);
 	const [scramble, setScramble] = useState();
 	const solveScramble = useRef(null); //~ Allows saving of previous scramble.
 	const solves = useRef(null);
+	const event = useRef("333");
 
 	useEffect(() => {
-		getScramble(event);
 		document.onmousedown = disableSelect;
 		document.onselectstart = disableSelect;
+		getScramble(event);
+		randomScrambleForEvent("444");
 	}, []);
+
+	// useEffect(() => {
+	// 	// getScramble(event);
+	// }, [event]);
 
 	const disableSelect = (e) => {
 		return false;
 	};
 
 	const getScramble = async (event) => {
-		solveScramble.current = (await randomScrambleForEvent(event)).toString();
+		console.log("scramble" + event.current);
+		solveScramble.current = (await randomScrambleForEvent(event.current)).toString();
 		setScramble(solveScramble.current);
 		solves.current = SolveHandler();
 		setLoaded(true);
@@ -35,6 +42,7 @@ export default function Home() {
 		SolveHandler(solveTime, solveScramble.current);
 	};
 
+	console.log(event.current);
 	console.log("index");
 	if (loaded) {
 		return (
@@ -43,14 +51,14 @@ export default function Home() {
 					<SolveList solves={solves.current} />
 				</div>
 				<div className="h-full flex flex-col justify-between items-center flex-grow">
-					<NavBar setEvent={setEvent} getScramble={getScramble} />
+					<NavBar getScramble={getScramble} event={event} />
 					<div className="flex flex-col justify-center items-center">
 						<div className="flex flex-col justify-center items-center">
 							<span className="text-2xl pb-4">{scramble}</span>
 							<ScrambleOptions getScramble={getScramble} event={event} />
 						</div>
 						<Timer getScramble={getScramble} event={event} solvePusher={solvePusher} />
-						{event}
+						{event.current}
 					</div>
 					<div></div>
 				</div>

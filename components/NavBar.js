@@ -1,19 +1,19 @@
 import React from "react";
 
-export default function NavBar({ setEvent, getScramble }) {
+export default function NavBar({ getScramble, event }) {
 	return (
 		<div className="w-full h-12 flex justify-between items-center text-center px-4">
 			<p
 				onClick={() => {
-					setEvent("333");
-					getScramble("333");
+					event.current = "333";
+					getScramble(event);
 				}}>
 				3x3
 			</p>
 			<p
 				onClick={() => {
-					setEvent("444");
-					getScramble("444");
+					event.current = "444";
+					getScramble(event);
 				}}>
 				4x4
 			</p>

@@ -17,7 +17,6 @@ function SolveRender({ solves, updater }) {
 	console.log("solverender");
 
 	return solves.map((solve, index, solves) => {
-		console.log(solve.time);
 		return (
 			<div key={solve.key} className="flex justify-between gap-24">
 				<div className="flex gap-4">
