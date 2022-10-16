@@ -7,13 +7,14 @@ import NavBar from "../components/NavBar";
 import ScrambleOptions from "../components/ScrambleOptions";
 
 export default function Home() {
+	const [event, setEvent] = useState("333");
 	const [loaded, setLoaded] = useState(false);
 	const [scramble, setScramble] = useState();
 	const solveScramble = useRef(null); //~ Allows saving of previous scramble.
 	const solves = useRef(null);
 
 	useEffect(() => {
-		getScramble();
+		getScramble(event);
 		document.onmousedown = disableSelect;
 		document.onselectstart = disableSelect;
 	}, []);
@@ -22,8 +23,8 @@ export default function Home() {
 		return false;
 	};
 
-	const getScramble = async () => {
-		solveScramble.current = (await randomScrambleForEvent("333")).toString();
+	const getScramble = async (event) => {
+		solveScramble.current = (await randomScrambleForEvent(event)).toString();
 		setScramble(solveScramble.current);
 		solves.current = SolveHandler();
 		setLoaded(true);
@@ -38,17 +39,18 @@ export default function Home() {
 	if (loaded) {
 		return (
 			<div className="h-screen bg-black text-white flex">
-				<div className="flex-initial overflow-scroll w-auto">
+				<div className="flex-initial overflow-scroll w-auto hidden lg:block">
 					<SolveList solves={solves.current} />
 				</div>
 				<div className="h-full flex flex-col justify-between items-center flex-grow">
-					<NavBar />
+					<NavBar setEvent={setEvent} getScramble={getScramble} />
 					<div className="flex flex-col justify-center items-center">
 						<div className="flex flex-col justify-center items-center">
 							<span className="text-2xl pb-4">{scramble}</span>
-							<ScrambleOptions getScramble={getScramble} />
+							<ScrambleOptions getScramble={getScramble} event={event} />
 						</div>
-						<Timer getScramble={getScramble} solvePusher={solvePusher} />
+						<Timer getScramble={getScramble} event={event} solvePusher={solvePusher} />
+						{event}
 					</div>
 					<div></div>
 				</div>

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import SolveList from "./SolveList";
+import TimeRender from "./TimeRender";
 
-export default function Timer({ getScramble, solvePusher }) {
+export default function Timer({ getScramble, solvePusher, event }) {
 	const [time, setTime] = useState(0);
 	const interval = useRef(null);
 	let solveTime = 0; // Time pushed to the database.
@@ -37,7 +37,7 @@ export default function Timer({ getScramble, solvePusher }) {
 				window.addEventListener("touchend", handleStart, true);
 			}, 2000); //~ <-- handleStart delay.
 			clearInterval(interval.current);
-			getScramble();
+			getScramble(event);
 		}
 	};
 
@@ -49,9 +49,7 @@ export default function Timer({ getScramble, solvePusher }) {
 	console.log("timer");
 	return (
 		<div className="text-7xl text-center mt-2">
-			<span>{("0" + Math.floor((time / 60000) % 1000)).slice(-2)}:</span>
-			<span>{("0" + Math.floor((time / 1000) % 1000)).slice(-2)}.</span>
-			<span>{("00" + (time % 1000)).slice(-3, -1)}</span>
+			<TimeRender time={time} />
 		</div>
 	);
 }

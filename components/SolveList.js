@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { dnf, PlusTwo, SolveRemove } from "./SolveHandler";
+import TimeRender from "./TimeRender";
 
 export default function SolveList({ solves }) {
 	const [update, setUpdate] = useState(0);
@@ -16,6 +17,7 @@ function SolveRender({ solves, updater }) {
 	console.log("solverender");
 
 	return solves.map((solve, index, solves) => {
+		console.log(solve.time);
 		return (
 			<div key={solve.key} className="flex justify-between gap-24">
 				<div className="flex gap-4">
@@ -31,7 +33,7 @@ function SolveRender({ solves, updater }) {
 						className={
 							solve.dnf ? "text-red-500" : solve.plus2 ? "text-orange-300" : "text-green-500"
 						}>
-						{solve.dnf ? "DNF" : timeRender(solve.time)}
+						{solve.dnf ? "DNF" : <TimeRender time={solve.time} />}
 						{solve.plus2 && !solve.dnf ? "+" : null}
 					</p>
 				</div>
@@ -58,16 +60,6 @@ function SolveRender({ solves, updater }) {
 			</div>
 		);
 	});
-}
-
-function timeRender(time) {
-	return (
-		("0" + Math.floor((time / 60000) % 1000)).slice(-2) +
-		":" +
-		("0" + Math.floor((time / 1000) % 1000)).slice(-2) +
-		"." +
-		("00" + (time % 1000)).slice(-3, -1)
-	);
 }
 
 // function averageOf(index, solves, averageOfNum) {
