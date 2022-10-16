@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { SolveRemove } from "./SolveHandler";
+import { dnf, PlusTwo, SolveRemove } from "./SolveHandler";
 
 export default function SolveList({ solves }) {
 	const [update, setUpdate] = useState(0);
 	console.log("solvelist");
 
 	return (
-		<div className="flex flex-col p-3">
+		<div className="flex flex-col p-3 min-w-2/5">
 			<SolveRender solves={solves} updater={setUpdate} />
 		</div>
 	);
@@ -17,16 +17,42 @@ function SolveRender({ solves, updater }) {
 
 	return solves.map((solve, index, solves) => {
 		return (
-			<div key={solve.key} className="flex">
-				<p
-					className="w-8 hover:text-red-500 cursor-pointer"
-					onClick={() => {
-						SolveRemove(solves, index);
-						updater(Math.random());
-					}}>
-					{solves.length - index}:
-				</p>
-				<p>{timeRender(solve.time)}</p>
+			<div key={solve.key} className="flex justify-between gap-24">
+				<div className="flex gap-4">
+					<p
+						className="hover:text-red-500 cursor-pointer"
+						onClick={() => {
+							SolveRemove(solves, index);
+							updater(Math.random());
+						}}>
+						{solves.length - index}:
+					</p>
+					<p
+						className={
+							solve.dnf ? "text-red-500" : solve.plus2 ? "text-orange-300" : "text-green-500"
+						}>
+						{solve.dnf ? "DNF" : timeRender(solve.time)}
+						{solve.plus2 && !solve.dnf ? "+" : null}
+					</p>
+				</div>
+				<div className="flex gap-4">
+					<p
+						className="cursor-pointer"
+						onClick={() => {
+							PlusTwo(solves, index);
+							updater(Math.random());
+						}}>
+						+2
+					</p>
+					<p
+						className="cursor-pointer"
+						onClick={() => {
+							dnf(solves, index);
+							updater(Math.random());
+						}}>
+						DNF
+					</p>
+				</div>
 				{/* <p>{averageOf(index, solves, 5)}</p>
 				<p>{averageOf(index, solves, 12)}</p> */}
 			</div>

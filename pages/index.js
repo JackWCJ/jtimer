@@ -32,7 +32,7 @@ export default function Home() {
 	if (loaded) {
 		return (
 			<div className="h-screen bg-black text-white flex">
-				<div className="flex-initial overflow-scroll">
+				<div className="flex-initial overflow-scroll w-auto">
 					<SolveList solves={solves.current} />
 				</div>
 				<div className="h-full flex flex-col justify-between items-center flex-grow">
@@ -40,7 +40,7 @@ export default function Home() {
 					<div className="flex flex-col justify-center items-center">
 						<div className="flex flex-col justify-center items-center">
 							<span className="text-2xl pb-4">{scramble}</span>
-							<ScrambleOptions />
+							<ScrambleOptions getScramble={getScramble} />
 						</div>
 						<Timer getScramble={getScramble} solvePusher={solvePusher} />
 					</div>
