@@ -1,19 +1,27 @@
-import React, { useState } from "react";
-import { dnf, PlusTwo, SolveRemove } from "./SolveHandler";
+import React, { useState, useRef, useEffect } from "react";
+import SolveHandler, { dnf, PlusTwo, SolveRemove } from "./SolveHandler";
 import TimeRender from "./TimeRender";
 
-export default function SolveList({ solves }) {
+export default function SolveList({ event }) {
 	const [update, setUpdate] = useState(0);
-	console.log("solvelist");
+	const [solves, setSolves] = useState(SolveHandler(false, false, event.current));
+	// const solves = useRef(SolveHandler(false, false, event.current));
+
+	// useEffect(() => {
+	// 	solves.current = SolveHandler(false, false, event.current);
+	// }, []);
+
+	console.log(solves);
 
 	return (
 		<div className="flex flex-col p-3 min-w-2/5">
-			<SolveRender solves={solves} updater={setUpdate} />
+			<p className="font-bold text-center">{event.current}</p>
+			<SolveRender solves={solves} updater={setUpdate} event={event} />
 		</div>
 	);
 }
 
-function SolveRender({ solves, updater }) {
+function SolveRender({ solves, updater, event }) {
 	console.log("solverender");
 
 	return solves.map((solve, index, solves) => {
@@ -23,7 +31,7 @@ function SolveRender({ solves, updater }) {
 					<p
 						className="hover:text-red-500 cursor-pointer"
 						onClick={() => {
-							SolveRemove(solves, index);
+							SolveRemove(solves, index, event.current);
 							updater(Math.random());
 						}}>
 						{solves.length - index}:
@@ -40,7 +48,7 @@ function SolveRender({ solves, updater }) {
 					<p
 						className="cursor-pointer"
 						onClick={() => {
-							PlusTwo(solves, index);
+							PlusTwo(solves, index, event.current);
 							updater(Math.random());
 						}}>
 						+2
@@ -48,7 +56,7 @@ function SolveRender({ solves, updater }) {
 					<p
 						className="cursor-pointer"
 						onClick={() => {
-							dnf(solves, index);
+							dnf(solves, index, event.current);
 							updater(Math.random());
 						}}>
 						DNF
@@ -60,17 +68,3 @@ function SolveRender({ solves, updater }) {
 		);
 	});
 }
-
-// function averageOf(index, solves, averageOfNum) {
-// 	if (solves[index + (averageOfNum - 1)]) {
-// 		let totalTime = 0;
-// 		let solveArr = solves.slice(index, index + averageOfNum).map((item) => item.time);
-// 		let max = Math.max(...solveArr);
-// 		let min = Math.min(...solveArr);
-// 		for (let i = 0; i < solveArr.length; i++) {
-// 			solveArr[i] !== min && solveArr[i] !== max ? (totalTime += solveArr[i]) : null;
-// 		}
-// 		let totalTimeDiv = Math.round(totalTime / (averageOfNum - 2));
-// 		return timeRender(totalTimeDiv);
-// 	}
-// }

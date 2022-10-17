@@ -1,10 +1,10 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 
-export default function SolveHandler(time, scramble) {
-	let solves = JSON.parse(localStorage.getItem("solves") || "[]");
+export default function SolveHandler(time, scramble, event) {
+	let solves = JSON.parse(localStorage.getItem(event) || "[]");
 
-	console.log("solvehandler");
+	console.log("solvehandler" + event);
 	if (time && scramble) {
 		let solve = {
 			time: time,
@@ -15,24 +15,24 @@ export default function SolveHandler(time, scramble) {
 		};
 		solves.unshift(solve);
 
-		localStorage.setItem("solves", JSON.stringify(solves));
+		localStorage.setItem(event, JSON.stringify(solves));
 	}
 	return solves;
 }
 
-export function SolveRemove(solves, index) {
+export function SolveRemove(solves, index, event) {
 	solves.splice(index, 1);
-	localStorage.setItem("solves", JSON.stringify(solves));
+	localStorage.setItem(event, JSON.stringify(solves));
 	console.log("Remove");
 }
 
-export function dnf(solves, index) {
+export function dnf(solves, index, event) {
 	solves[index].dnf = !solves[index].dnf;
-	localStorage.setItem("solves", JSON.stringify(solves));
+	localStorage.setItem(event, JSON.stringify(solves));
 	console.log("dnf");
 }
 
-export function PlusTwo(solves, index) {
+export function PlusTwo(solves, index, event) {
 	if (solves[index].plus2) {
 		solves[index].time -= 2000;
 		console.log("Minus2");
@@ -41,5 +41,5 @@ export function PlusTwo(solves, index) {
 		console.log("Plus2");
 	}
 	solves[index].plus2 = !solves[index].plus2;
-	localStorage.setItem("solves", JSON.stringify(solves));
+	localStorage.setItem(event, JSON.stringify(solves));
 }

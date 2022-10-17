@@ -7,60 +7,49 @@ import NavBar from "../components/NavBar";
 import ScrambleOptions from "../components/ScrambleOptions";
 
 export default function Home() {
-	// const [event, setEvent] = useState("333");
 	const [loaded, setLoaded] = useState(false);
 	const [scramble, setScramble] = useState();
 	const solveScramble = useRef(null); //~ Allows saving of previous scramble.
-	const solves = useRef(null);
 	const event = useRef("333");
 
 	useEffect(() => {
-		document.onmousedown = disableSelect;
-		document.onselectstart = disableSelect;
-		getScramble(event);
-		randomScrambleForEvent("444");
+		const preloadScramble = async (event) => {
+			await randomScrambleForEvent("444");
+			solveScramble.current = (await randomScrambleForEvent(event.current)).toString();
+			setScramble(solveScramble.current);
+			setLoaded(true);
+		};
+
+		preloadScramble(event);
 	}, []);
-
-	// useEffect(() => {
-	// 	// getScramble(event);
-	// }, [event]);
-
-	const disableSelect = (e) => {
-		return false;
-	};
 
 	const getScramble = async (event) => {
 		console.log("scramble" + event.current);
+		// solves.current = SolveHandler(false, false, event.current);
 		solveScramble.current = (await randomScrambleForEvent(event.current)).toString();
 		setScramble(solveScramble.current);
-		solves.current = SolveHandler();
-		setLoaded(true);
 	};
 
 	// TODO: Adjust code so SolveHandler isn't called twice when timer stops.
-	const solvePusher = (solveTime) => {
-		SolveHandler(solveTime, solveScramble.current);
+	const solvePusher = (solveTime: number) => {
+		SolveHandler(solveTime, solveScramble.current, event.current);
 	};
 
-	console.log(event.current);
 	console.log("index");
 	if (loaded) {
 		return (
 			<div className="h-screen bg-black text-white flex">
 				<div className="flex-initial overflow-scroll w-auto hidden lg:block">
-					<SolveList solves={solves.current} />
+					<SolveList event={event} />
 				</div>
-				<div className="h-full flex flex-col justify-between items-center flex-grow">
-					<NavBar getScramble={getScramble} event={event} />
-					<div className="flex flex-col justify-center items-center">
-						<div className="flex flex-col justify-center items-center">
-							<span className="text-2xl pb-4">{scramble}</span>
-							<ScrambleOptions getScramble={getScramble} event={event} />
-						</div>
+				<div className="h-full flex flex-col flex-grow items-center">
+					<nav className="w-full h-12">
+						<NavBar getScramble={getScramble} event={event} />
+					</nav>
+					<div className="flex-grow flex flex-col items-center justify-center">
+						<ScrambleOptions getScramble={getScramble} event={event} scramble={scramble} />
 						<Timer getScramble={getScramble} event={event} solvePusher={solvePusher} />
-						{event.current}
 					</div>
-					<div></div>
 				</div>
 			</div>
 		);
