@@ -7,30 +7,35 @@ import styles from "../../styles/components/Timer.module.scss";
 export default function Timer() {
 	const { timerStop, event } = useContext(TimerContext);
 	const [time, setTime] = useState(0);
+	const inspection = false;
 	const interval = useRef(null);
 	const currentEvent = useRef(event);
 	let solveTime = 0; //~ Time pushed to the database.
 
 	console.log(`%cTimer - Event: ${event}`, "color: orange");
 
-	const handleStart = ({ key }: KeyboardEvent) => {
+	const handleInspection = ({ key }: KeyboardEvent) => {
 		if (key === " " || !key) {
-			solveTime = 0;
-			window.removeEventListener("keyup", handleSpam, true);
-			window.removeEventListener("touchend", handleSpam, true);
-			window.removeEventListener("keyup", handleStart, true);
-			window.removeEventListener("touchend", handleStart, true);
-			window.addEventListener("keydown", handleStop, true);
-			window.addEventListener("touchstart", handleStop, true);
-			// setInterval() is not accurate: instead, the difference in time
-			// from start => stop of the timer is measured.
-			clearInterval(interval.current);
-			let startTime = Date.now() - time;
-			interval.current = setInterval(() => {
-				solveTime = Math.floor((Date.now() - startTime) / 10); //~ <-- rounds down to 10ms
-				setTime(solveTime);
-			}, 10);
+			handleStart();
 		}
+	};
+
+	const handleStart = () => {
+		solveTime = 0;
+		window.removeEventListener("keyup", handleSpam, true);
+		window.removeEventListener("touchend", handleSpam, true);
+		window.removeEventListener("keyup", handleInspection, true);
+		window.removeEventListener("touchend", handleInspection, true);
+		window.addEventListener("keydown", handleStop, true);
+		window.addEventListener("touchstart", handleStop, true);
+		// setInterval() is not accurate: instead, the difference in time
+		// from start => stop of the timer is measured.
+		clearInterval(interval.current);
+		let startTime = Date.now() - time;
+		interval.current = setInterval(() => {
+			solveTime = Math.floor((Date.now() - startTime) / 10); //~ <-- rounds down to 10ms
+			setTime(solveTime);
+		}, 10);
 	};
 
 	const handleStop = async ({ key }: KeyboardEvent) => {
@@ -47,8 +52,8 @@ export default function Timer() {
 	// Only enables the handleStart EventListener when space is lifted after
 	// the timer has finished. Otherwise, the timer will start instantly after stopping.
 	const handleSpam = () => {
-		window.addEventListener("keyup", handleStart, true);
-		window.addEventListener("touchend", handleStart, true);
+		window.addEventListener("keyup", handleInspection, true);
+		window.addEventListener("touchend", handleInspection, true);
 	};
 
 	// TODO: There's probably a better way to do this.
@@ -60,8 +65,8 @@ export default function Timer() {
 	}, [event]);
 
 	useEffect(() => {
-		window.addEventListener("keyup", handleStart, true);
-		window.addEventListener("touchend", handleStart, true);
+		window.addEventListener("keyup", handleInspection, true);
+		window.addEventListener("touchend", handleInspection, true);
 	}, []);
 
 	return (
