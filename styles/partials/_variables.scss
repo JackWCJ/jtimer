@@ -1,0 +1,28 @@
+//* Colours
+// Neutrals
+$neutral-10: rgb(18, 18, 18);
+$neutral-9: rgb(28, 28, 28);
+$neutral-8: rgb(39, 39, 39);
+$neutral-7: rgb(50, 50, 50);
+$neutral-6-5: rgb(66, 66, 66);
+$neutral-6: rgb(80, 80, 80);
+$neutral-5: rgb(99, 99, 99);
+$neutral-4: rgb(138, 138, 138);
+$neutral-3: rgb(171, 171, 171);
+$neutral-2: rgb(208, 208, 208);
+$neutral-1: rgb(238, 238, 238);
+$neutral-0: rgb(247, 247, 247);
+
+// Utilities
+$red: #fc3232;
+$red-hover: #ff5959;
+$green: #4bec7c;
+$orange: #fca533;
+$orange-hover: #fab964;
+
+// Shadows
+$shadow-primary: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+// Borders
+$border-primary: 1px solid $neutral-7;
+$border-secondary: 1px solid $neutral-6-5;

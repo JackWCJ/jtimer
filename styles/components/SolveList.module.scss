@@ -1,0 +1,139 @@
+@import "../partials/variables";
+
+//* SolveList.tsx
+.solveList {
+	width: 18rem;
+	// padding-left: 1.5rem;
+	margin: 1rem;
+	border-radius: 1rem;
+	border: $border-primary;
+	background-color: $neutral-9;
+	box-shadow: $shadow-primary;
+
+	&__solves {
+		height: 100%;
+		gap: 0.25rem;
+		display: flex;
+		flex-direction: column;
+		overflow-y: scroll;
+		padding-top: 1.5rem;
+		padding-bottom: 1.5rem;
+		user-select: none;
+		-webkit-user-select: none;
+
+		-webkit-mask-image: linear-gradient(
+			to bottom,
+			transparent 1.25rem,
+			black 1.5rem,
+			black calc(100% - 1.5rem),
+			transparent calc(100% - 1.25rem)
+		);
+		mask-image: linear-gradient(
+			to bottom,
+			transparent 1.25rem,
+			black 1.5rem,
+			black calc(100% - 1.5rem),
+			transparent calc(100% - 1.25rem)
+		);
+	}
+}
+
+//* SolveRender.tsx
+.solve {
+	padding: 0.125rem 1.5rem 0.125rem 1.5rem;
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	width: 100%;
+	transition: background-color 0.15s ease-in-out;
+	background-color: transparent;
+
+	&:hover {
+		background-color: $neutral-10;
+	}
+
+	&__info {
+		font-size: 1rem;
+		font-weight: 400;
+		flex-grow: 1;
+		flex-shrink: 0;
+		display: flex;
+		justify-content: space-between;
+		color: $neutral-4;
+	}
+
+	&__time {
+		font-weight: 400;
+		letter-spacing: 0.05rem;
+		color: $green;
+
+		&--dnf {
+			color: $red;
+			font-weight: 500;
+		}
+
+		&--plus2 {
+			color: $orange;
+		}
+	}
+
+	&__buttons {
+		flex-shrink: 0;
+		display: flex;
+		align-content: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+		font-weight: 600;
+		color: $neutral-4;
+
+		&DNF {
+			cursor: pointer;
+			transition: color 0.15s ease-in-out;
+
+			&:hover {
+				color: $neutral-2;
+				cursor: pointer;
+			}
+
+			&--active {
+				transition: color 0.15s ease-in-out;
+				cursor: pointer;
+				color: $red;
+				&:hover {
+					color: $red-hover;
+				}
+			}
+		}
+
+		&Plus2 {
+			cursor: pointer;
+			transition: color 0.15s ease-in-out;
+
+			&:hover {
+				color: $neutral-2;
+				cursor: pointer;
+			}
+
+			&--active {
+				transition: color 0.15s ease-in-out;
+				cursor: pointer;
+				color: $orange;
+				&:hover {
+					color: $orange-hover;
+				}
+			}
+		}
+
+		&Delete {
+			cursor: pointer;
+			color: $neutral-7;
+			margin-top: 1px;
+			height: 1rem;
+			transition: color 0.15s ease-in-out;
+			&:hover {
+				cursor: pointer;
+				color: $red;
+			}
+		}
+	}
+}

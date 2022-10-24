@@ -1,0 +1,45 @@
+@import "../partials/variables";
+
+.navBar {
+	margin-right: 1rem;
+	padding: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	border-right: $border-primary;
+	background-color: $neutral-9;
+	box-shadow: $shadow-primary;
+	color: $neutral-5;
+
+	* {
+		cursor: not-allowed;
+	}
+
+	&__logo {
+		fill: $neutral-0;
+	}
+
+	&__settings {
+		aspect-ratio: 1;
+		height: 2rem;
+
+		&Circle {
+			aspect-ratio: 1;
+			height: 2rem;
+			position: absolute;
+		}
+
+		&Gear {
+			color: $neutral-9;
+			margin: 0.5rem;
+			position: absolute;
+			aspect-ratio: 1;
+			height: 1rem;
+		}
+	}
+
+	&__icon {
+		aspect-ratio: 1;
+		height: 2rem;
+	}
+}

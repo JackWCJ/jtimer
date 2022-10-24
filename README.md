@@ -1,8 +1,8 @@
-A Rubik's Cube timer built with [Next.js](https://nextjs.org/) and [Tailwind CSS](https://tailwindcss.com/). jTimer is still in development!
+A Rubik's Cube timer built with [Next.js](https://nextjs.org/). jTimer is still in development!
 
 ## Acknowledgements
 
-jTimer depends on the [cubing.js](https://github.com/cubing/cubing.js) library to generate WCA-quality scrambles.
+jTimer depends on the [cubing.js](https://github.com/cubing/cubing.js) library to generate WCA-quality scrambles. This project wouldn't be possible without them.
 
 ## License
 

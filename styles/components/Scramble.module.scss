@@ -1,0 +1,41 @@
+.scramble {
+	max-width: 60vw;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+	user-select: none;
+	-webkit-user-select: none;
+
+	&__text {
+		font-family: Jetbrains Mono, monospace;
+		font-size: 1.25rem;
+		text-align: center;
+		line-height: 150%;
+	}
+}
+
+.options {
+	display: flex;
+	gap: 2rem;
+
+	&__icon {
+		cursor: pointer;
+		&:focus {
+			animation: rotate 0.3s ease-in-out;
+			outline: none;
+		}
+		&:active {
+			animation: none;
+		}
+	}
+}
+
+@keyframes rotate {
+	0% {
+		rotate: 0deg;
+	}
+	100% {
+		rotate: 360deg;
+	}
+}

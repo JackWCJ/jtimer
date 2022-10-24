@@ -1,0 +1,83 @@
+@import "../partials/variables";
+
+.options {
+	margin: 1rem;
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.eventSelect {
+	position: relative;
+	* {
+		font-size: 1rem;
+	}
+	&__button {
+		display: flex;
+		gap: 1rem;
+		padding: 0.25rem 0.5rem;
+		border: none;
+		border-radius: 0.5rem;
+		background-color: $neutral-8;
+		color: $neutral-2;
+		font-weight: 400;
+		border: $border-secondary;
+		box-shadow: $shadow-primary;
+		cursor: pointer;
+		transition: background-color 0.15s ease-in-out;
+
+		&:hover {
+			background-color: $neutral-7;
+		}
+	}
+
+	&__elements {
+		backdrop-filter: blur(0.5rem);
+		z-index: 1;
+		position: absolute;
+		margin-top: 0.5rem;
+		right: 0;
+		padding-block: 0.625rem;
+		gap: 0.25rem;
+		display: flex;
+		flex-direction: column;
+		background-color: transparent;
+		border: $border-secondary;
+		border-radius: 0.75rem;
+		box-shadow: $shadow-primary;
+		opacity: 100%;
+		transform-origin: 95% top;
+		transform: scale(1);
+		transition-property: opacity, transform;
+		transition-duration: 0.15s, 0.15s;
+		transition-timing-function: cubic-bezier(0.45, 0.05, 0.55, 0.95);
+
+		&--hide {
+			transform-origin: 95% top;
+			opacity: 0%;
+			transform: scale(0);
+		}
+	}
+
+	&__element {
+		border: none;
+		padding-inline: 0.75rem;
+		padding-block: 0.125rem;
+		text-align: start;
+		cursor: pointer;
+		background-color: transparent;
+		color: $neutral-2;
+		font-weight: 400;
+		transition: color 0.15s ease-in-out;
+
+		&:hover {
+			background-color: rgba($neutral-0, 5%);
+		}
+
+		&--selected {
+			cursor: default;
+			color: $neutral-5;
+		}
+	}
+}
