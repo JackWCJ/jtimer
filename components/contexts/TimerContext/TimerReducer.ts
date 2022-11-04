@@ -8,6 +8,7 @@ export const ACTIONS = {
 	PRELOAD: "preload",
 	REMOVE_SOLVE: "remove-solve",
 	TIMER_STOP: "timer-stop",
+	TOGGLE_INSPECTION: "toggle-inspection",
 };
 
 export const reducer = (state, action) => {
@@ -55,6 +56,7 @@ export const reducer = (state, action) => {
 				event: action.payload.event,
 				solves: getSolves(action.payload.event),
 				scramble: action.payload.scramble,
+				inspection: action.payload.inspection,
 			};
 
 		case ACTIONS.REMOVE_SOLVE:
@@ -71,6 +73,13 @@ export const reducer = (state, action) => {
 				...state,
 				solves: [newSolve(action.payload.time, state.scramble), ...state.solves],
 				scramble: action.payload.scramble,
+			};
+
+		case ACTIONS.TOGGLE_INSPECTION:
+			console.log(!state.inspection);
+			return {
+				...state,
+				inspection: !state.inspection,
 			};
 
 		default:

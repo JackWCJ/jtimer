@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
-import getScramble from "../scripts/ScrambleHandler";
+import getScramble from "../../scripts/ScrambleHandler";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import { TimerContext } from "../contexts/TimerContext/TimerContext";
-import styles from "../../styles/components/SolveOptions.module.scss";
+import { TimerContext } from "../../contexts/TimerContext/TimerContext";
+import styles from "../../../styles/components/SolveOptions.module.scss";
 
 const events = [
 	{ name: "2x2", code: "222" },

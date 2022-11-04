@@ -7,8 +7,8 @@ export const TimerContextProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, {
 		event: "",
 		scramble: "",
+		inspection: false,
 		solves: [],
-		loaded: false,
 	});
 
 	const changeEvent = (event: string, scramble: string) => {
@@ -39,10 +39,10 @@ export const TimerContextProvider = ({ children }) => {
 		});
 	};
 
-	const preload = (preloadedScramble: string, event: string) => {
+	const preload = (preloadedScramble: string, event: string, inspection: boolean) => {
 		dispatch({
 			type: ACTIONS.PRELOAD,
-			payload: { scramble: preloadedScramble, event: event },
+			payload: { scramble: preloadedScramble, event: event, inspection: inspection },
 		});
 	};
 
@@ -60,9 +60,16 @@ export const TimerContextProvider = ({ children }) => {
 		});
 	};
 
+	const toggleInspection = () => {
+		dispatch({
+			type: ACTIONS.TOGGLE_INSPECTION,
+		});
+	};
+
 	const values = {
 		event: state.event,
 		scramble: state.scramble,
+		inspection: state.inspection,
 		solves: state.solves,
 		changeEvent,
 		changeDNF,
@@ -71,6 +78,7 @@ export const TimerContextProvider = ({ children }) => {
 		preload,
 		removeSolve,
 		timerStop,
+		toggleInspection,
 	};
 
 	return <TimerContext.Provider value={values}>{children}</TimerContext.Provider>;

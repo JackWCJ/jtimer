@@ -8,9 +8,7 @@ export default function SolveList() {
 
 	return (
 		<div className={styles.solveList}>
-			<div className={styles.solveList__solves}>
-				<SolveRender />
-			</div>
+			<SolveRender />
 		</div>
 	);
 }

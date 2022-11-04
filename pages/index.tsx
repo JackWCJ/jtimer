@@ -8,26 +8,39 @@ import TimerLayout from "../components/layouts/TimerLayout";
 import { TimerContext } from "../components/contexts/TimerContext/TimerContext";
 import Timer from "../components/elements/Timer";
 import SolveList from "../components/elements/SolveList";
-import SolveOptions from "../components/elements/SolveOptions";
+import SolveOptions from "../components/elements/SolveOptions/SolveOptions";
 import Scramble from "../components/elements/Scramble";
 import NavBar from "../components/elements/NavBar";
 import { preloadScramble } from "../components/scripts/ScrambleHandler";
 import { solvePush } from "../components/scripts/SolveHandler";
-import getEvent, { setEvent } from "../components/scripts/EventHandler";
+import {
+	getEvent,
+	getInspection,
+	setEvent,
+	setInspection,
+} from "../components/scripts/OptionsHandler";
 
 const Home: NextPageWithLayout = () => {
 	const [loaded, setLoaded] = useState(false);
-	const { preload, event, solves } = useContext(TimerContext);
+	const { preload, event, solves, inspection } = useContext(TimerContext);
 
 	useEffect(() => {
 		const indexPreload = async () => {
 			let preloadedEvent = getEvent();
-			preload(await preloadScramble(preloadedEvent), preloadedEvent);
+			let preloadedInspection = getInspection();
+			preload(await preloadScramble(preloadedEvent), preloadedEvent, preloadedInspection);
 			console.log("%c3x3 scramble loaded.", "color: PaleGreen");
 			setLoaded(true);
 		};
 		indexPreload();
 	}, []);
+
+	useEffect(() => {
+		const indexPushInspection = (inspection) => {
+			setInspection(inspection);
+		};
+		loaded && indexPushInspection(inspection);
+	}, [inspection]);
 
 	useEffect(() => {
 		const indexPushSolves = (event) => {
